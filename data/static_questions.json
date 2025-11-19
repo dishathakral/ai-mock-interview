@@ -1,0 +1,1524 @@
+{
+  "introductory": [
+    {
+      "question_text": "To start, please walk me through your resume and highlight key experiences relevant to this role.",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "background",
+        "career-path"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will provide a chronological overview, emphasizing roles and responsibilities that align with the job description. I will also highlight quantifiable achievements.",
+      "is_mandatory": true
+    },
+    {
+      "question_text": "Tell me about yourself and what attracted you to this specific opportunity at our company.",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "background",
+        "career-path"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will provide a brief overview of my background, skills, and experience. I will also mention the specific aspects of the opportunity and the company that resonate with me.",
+      "is_mandatory": true
+    },
+    {
+      "question_text": "Can you describe your professional journey leading up to your application for this position?",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "career-path",
+        "professional-journey"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I'll outline my career progression, highlighting key roles, responsibilities, and accomplishments that showcase my growth and suitability for this position.",
+      "is_mandatory": true
+    },
+    {
+      "question_text": "Could you elaborate on your educational background and any relevant certifications or training you've acquired?",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "education",
+        "background"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will discuss my degrees, relevant coursework, and any certifications or training programs that have equipped me with the skills necessary for this role.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What experiences have shaped your career goals and ultimately led you to apply for this job?",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "career-path",
+        "professional-journey"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I'll describe pivotal experiences that influenced my career path, highlighting skills developed and lessons learned that make me a strong candidate for this position.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Please share a brief overview of your previous role and the key responsibilities you held.",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "background",
+        "career-path"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I'll give a concise description of my previous role, focusing on the core duties and responsibilities I managed on a day-to-day basis.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Can you briefly describe how you got started in this particular industry or field?",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "background",
+        "career-path"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will outline the initial steps I took to enter this field, highlighting any relevant education, internships, or entry-level positions that helped me gain experience.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Talk about a project or accomplishment that you are particularly proud of, and how it relates to this opportunity.",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "background",
+        "career-path",
+        "professional-journey"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will describe the project, my role, and the positive impact it had. I will connect skills I used during that project with those required for this role.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What aspects of your background make you a strong fit for the requirements outlined in the job description?",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "background",
+        "career-path"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will highlight specific skills, experiences, and qualifications from my background that directly address the needs and expectations of the role as outlined in the job description.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Can you tell us more about your decision to pursue a career in this field?",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "career-path",
+        "professional-journey"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will elaborate on the factors that influenced my decision to pursue this career path, including my interests, skills, and long-term goals.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Please provide an overview of the skills and experiences you have gained in your previous roles that you believe are transferable to this position.",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "background",
+        "career-path"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will identify and describe specific skills and experiences from my previous roles that are relevant and applicable to the requirements of this new position.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Could you briefly outline your academic qualifications and any relevant projects or research you undertook during your studies?",
+      "question_type": "hr",
+      "subcategory": "introductory",
+      "tags": [
+        "education",
+        "background"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I will highlight my degrees, key areas of study, and any research or projects that demonstrate my skills and knowledge in this field.",
+      "is_mandatory": null
+    }
+  ],
+  "behavioral": [
+    {
+      "question_text": "Tell me about a time when you had to work as part of a team to achieve a goal. What was your role, and what challenges did you face?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "teamwork"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I look for candidates who can describe their contribution to a team and how they overcame obstacles collaboratively.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had a conflict with a colleague. How did you handle the situation, and what was the outcome?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "conflict resolution"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm interested in understanding how candidates resolve disagreements professionally and constructively.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to lead a team or a project. What leadership style did you adopt, and how did you motivate your team members?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "leadership"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to assess the candidate's leadership capabilities and how they inspire others.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you faced a complex problem at work. What steps did you take to analyze the problem and find a solution?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "problem-solving"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm looking for evidence of the candidate's analytical and problem-solving skills.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you failed to achieve a goal. What did you learn from the experience, and how did you move forward?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to understand how candidates handle failure and learn from their mistakes.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you achieved a significant success at work. What factors contributed to your success?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm interested in understanding what motivates the candidate and how they define success.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to manage multiple projects or tasks simultaneously. How did you prioritize your work, and what strategies did you use to stay organized?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm assessing the candidate's time management and organizational skills.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to adapt to a significant change in the workplace. How did you handle the change, and what challenges did you overcome?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to understand how adaptable the candidate is and how they respond to unexpected changes.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to make a difficult decision under pressure. What factors did you consider, and how did you arrive at your decision?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm looking for evidence of the candidate's decision-making skills and their ability to think critically.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you faced an ethical dilemma at work. How did you handle the situation, and what principles guided your decision?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm assessing the candidate's ethical awareness and their commitment to doing the right thing.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you came up with a creative or innovative solution to a problem. What inspired your idea, and how did you implement it?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to understand how creative and innovative the candidate is and how they generate new ideas.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to deal with a difficult or demanding customer. How did you handle the situation, and what steps did you take to resolve their concerns?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm assessing the candidate's customer service skills and their ability to handle challenging interactions.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to work with someone who had a very different personality than your own. How did you build rapport and collaborate effectively?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "teamwork"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The focus is on the candidate's ability to work with diverse personalities to achieve team goals.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to give constructive feedback to a colleague. How did you approach the conversation, and what was the outcome?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "conflict resolution"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The interest is in their ability to deliver feedback that is both helpful and well-received.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you mentored or coached someone. How did you tailor your approach to their individual needs, and what results did you see?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "leadership"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "Emphasis is placed on the candidate's ability to nurture and develop others.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to troubleshoot a technical issue or solve a complex problem under a tight deadline. What strategies did you use to manage the pressure and find a solution?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "problem-solving"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The focus is on the ability to think critically and find solutions under pressure.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you made a mistake at work. How did you acknowledge your error, and what steps did you take to correct it?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "A key assessment is the candidate's accountability and commitment to rectifying mistakes.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you exceeded expectations in a project or task. What steps did you take to go above and beyond, and what impact did it have?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The aim is to gauge the candidate's commitment to excellence and willingness to go the extra mile.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to manage conflicting priorities or deadlines. How did you prioritize your tasks, and what strategies did you use to ensure that everything got done on time?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The interest lies in assessing the candidate's ability to manage multiple demands effectively.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to adapt to a new technology or software system. How did you approach the learning process, and what challenges did you overcome?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The focus is on the candidate's adaptability and willingness to learn new skills.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to make a quick decision without all the necessary information. What factors did you consider, and how did you mitigate the risks?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The interest is in evaluating the candidate's risk assessment and decision-making abilities.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to uphold ethical standards or company values, even when it was difficult or unpopular. What principles guided your actions?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The aim is to gauge the candidate's commitment to ethical conduct and integrity.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you developed a new process or system to improve efficiency or productivity. What steps did you take to design and implement it?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The focus is on assessing the candidate's ability to identify and implement improvements.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to handle a dissatisfied customer who was upset or angry. How did you de-escalate the situation and resolve their concerns?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The interest lies in evaluating the candidate's customer service and conflict resolution skills.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to work with a team where there were conflicting opinions on how to proceed. How did you help the team come to a consensus?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "teamwork",
+        "conflict resolution"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm looking for candidates who facilitate collaboration and conflict resolution within a team.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you identified a problem that others had overlooked. What was your approach to bringing it to the attention of the appropriate people?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "problem-solving"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to see how candidates demonstrate initiative and problem-solving by addressing overlooked issues.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you were assigned a task or project that was outside of your comfort zone. How did you approach the challenge and what resources did you utilize?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm interested in assessing how the candidate responds to new challenges and explores available resources.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to adapt your communication style to effectively interact with a particular individual or group. What adjustments did you make?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I am evaluating their ability to adjust their communication based on the audience.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to make a decision that was unpopular with your team. How did you handle the situation and justify your decision?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "leadership"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I would like to know how they justify decisions.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to deal with a significant setback on a project. What did you learn from the experience?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to know how they learn from their mistakes.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you took the initiative to improve a process or system. What was the outcome?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to see how candidates can be proactive at work.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to handle a conflict between two members of your team. How did you mediate the situation and help them resolve their differences?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "teamwork",
+        "conflict resolution"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The goal is to have a resolution to the conflict.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to balance short-term goals with long-term objectives. How did you approach the challenge?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The goal is to balance both goals for the overall success of the organization.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to influence a decision or outcome without having direct authority. What strategies did you use?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "leadership"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I would like to see if they have the potential to be a leader.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to deal with a customer complaint that was based on a misunderstanding. How did you clarify the situation and resolve the issue?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The goal is to see the situation be resolved.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to develop a new skill or expertise in order to complete a project. How did you approach the learning process?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to know what methods they use to learn new things.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to adapt to a new work environment or company culture. What steps did you take to integrate into the team?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "teamwork"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "It is essential that a candidate is able to get accustomed to a team.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to make a tough decision with limited information and time. How did you weigh the risks and benefits?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The candidate should have weighed the risks and the benefits.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to challenge the status quo in order to improve a process or outcome. How did you approach the situation?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The candidate's actions should benefit the process and organization.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to work with a difficult stakeholder who had conflicting priorities. How did you find a solution that met everyone's needs?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "conflict resolution"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "The result should be that everyone gets their needs met.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to manage a project that was behind schedule or over budget. What steps did you take to get it back on track?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [
+        "problem-solving"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to see what they will do to solve these issues.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to deal with a crisis or emergency at work. How did you respond under pressure?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I want to see if the candidate can perform when under pressure.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to make a difficult decision that had ethical implications. How did you ensure that you made the right choice?",
+      "question_type": "hr",
+      "subcategory": "behavioral",
+      "tags": [],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "It is important that all choices are ethical.",
+      "is_mandatory": null
+    }
+  ],
+  "personality": [
+    {
+      "question_text": "What are some of your key strengths that you believe would benefit our team?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I am a strong communicator and problem-solver. I believe my ability to clearly articulate ideas and find creative solutions would be valuable.",
+      "is_mandatory": true
+    },
+    {
+      "question_text": "Can you describe a significant weakness and what steps you are taking to improve it?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I sometimes struggle with delegating tasks. To improve, I'm actively practicing trusting my colleagues and providing clear instructions.",
+      "is_mandatory": true
+    },
+    {
+      "question_text": "Where do you envision your career progressing in the next five years?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "goals",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I aim to deepen my expertise in this field and take on more leadership responsibilities. I hope to contribute significantly to the company's growth during that time.",
+      "is_mandatory": true
+    },
+    {
+      "question_text": "What motivates you to come to work each day?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "motivation",
+        "values"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I'm motivated by the opportunity to learn, solve challenging problems, and collaborate with a team. Knowing my work contributes to the company's success is also a big driver.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you typically handle stress and maintain a healthy work-life balance?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I prioritize tasks, take short breaks throughout the day, and ensure I disconnect from work during my personal time. I also engage in hobbies and exercise to de-stress.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What aspects of our company and this role specifically appeal to you?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "culture-fit",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I admire the company's commitment to innovation and [specific company value]. This role excites me because it allows me to leverage my skills in [relevant skill] to contribute to [specific goal].",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What personal values are most important to you, and how do you apply them in your professional life?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "values",
+        "culture-fit"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "Integrity and collaboration are core values for me. I always strive to be honest and transparent in my work, and I believe in the power of teamwork to achieve common goals.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you faced a significant challenge at work. What was your approach, and what did you learn?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I once had to lead a project with conflicting stakeholder interests. I facilitated open communication, found common ground, and adapted the plan to address key concerns. I learned the importance of flexibility and active listening.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you typically react to constructive criticism, and how do you use it to improve?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I welcome constructive criticism as an opportunity to grow. I listen actively, ask clarifying questions, and develop an action plan to address the feedback and improve my performance.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time you had to adapt to a significant change in your work environment. How did you handle it?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "culture-fit",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "When my previous company restructured, I embraced the new processes and sought training opportunities to quickly adapt. I proactively collaborated with colleagues to ensure a smooth transition and maintain productivity.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe your preferred work style and how you collaborate with colleagues.",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "culture-fit",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I prefer a structured approach with clear communication. I collaborate effectively by actively listening, sharing ideas openly, and respecting different perspectives to achieve common goals.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you prioritize tasks when faced with multiple deadlines and competing priorities?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I assess the urgency and importance of each task, using tools like the Eisenhower Matrix. I focus on high-impact activities first, communicate proactively about potential delays, and remain flexible to adjust priorities as needed.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What are your long-term career aspirations, and how does this role fit into your overall plan?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "goals",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I aspire to become a subject matter expert in this field and contribute to strategic decision-making. This role provides the opportunity to develop key skills and gain experience that aligns perfectly with my long-term goals.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to make a difficult decision with limited information. What was your reasoning?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I had to choose between two marketing strategies with incomplete data. I weighed the potential risks and rewards of each option, consulted with experienced colleagues, and selected the strategy with the highest probability of success.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you stay motivated and engaged when working on repetitive or less stimulating tasks?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "motivation",
+        "self-awareness"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I break down large tasks into smaller, manageable steps, set personal goals, and reward myself for completing milestones. I also seek opportunities to learn something new or find creative ways to improve efficiency.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time you disagreed with a colleague's approach. How did you handle the situation?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "culture-fit",
+        "self-awareness"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I respectfully expressed my concerns, listened to their perspective, and explored alternative solutions. We found a compromise that incorporated the best aspects of both approaches and ensured a positive working relationship.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a time when you took initiative and went above and beyond your assigned responsibilities.",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "motivation",
+        "self-awareness"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "When I noticed a recurring issue impacting team productivity, I proactively researched and implemented a new tool to automate the process. This improved efficiency and reduced errors, benefiting the entire team.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What strategies do you use to build and maintain strong working relationships with your colleagues?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "culture-fit",
+        "self-awareness"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I prioritize open communication, active listening, and showing genuine interest in my colleagues' perspectives. I also make an effort to provide support and celebrate team accomplishments.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you approach learning new skills and staying up-to-date with industry trends?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "motivation",
+        "goals"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I actively seek out learning opportunities such as online courses, industry conferences, and professional publications. I also network with experts in the field and stay curious about emerging technologies.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a time when you had to deliver difficult news or provide negative feedback to a colleague or client.",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "culture-fit"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I prepared thoroughly, delivered the message with empathy and respect, and focused on providing constructive solutions. I ensured the recipient understood the rationale behind the decision and offered support for moving forward.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What is your definition of success, both personally and professionally?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "values",
+        "goals"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "For me, success means making a positive impact on others and achieving meaningful goals. Professionally, it involves continuous learning, contributing to the company's success, and building strong relationships.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you handle situations where you have to make a decision that aligns with company values, even if it's unpopular?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "values",
+        "culture-fit"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I prioritize the company's values and make decisions that are ethical and aligned with our mission. I communicate the rationale behind my decision clearly and respectfully, even if it's not universally accepted.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you failed to meet a goal or expectation. What did you learn from the experience?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I analyzed the reasons for the failure, identified areas for improvement, and developed a new approach. I learned the importance of setting realistic goals, seeking feedback early, and adapting to unforeseen challenges.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you ensure that your work is accurate and meets the required quality standards?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "motivation",
+        "self-awareness"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "I double-check my work, use checklists, and seek feedback from colleagues to ensure accuracy. I also follow established quality control procedures and proactively identify potential errors.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to resolve a conflict between team members.",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "culture-fit",
+        "self-awareness"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I facilitated a discussion, encouraged open communication, and helped the team members find common ground. I focused on finding a solution that addressed both parties' concerns and maintained a positive working relationship.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What are you passionate about, and how do you incorporate those passions into your work?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "values",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I'm passionate about [mention a specific passion] and I try to incorporate it into my work by [explain how]. This helps me stay motivated and engaged, and I believe it contributes to my overall performance.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you maintain a positive attitude when faced with difficult or frustrating situations at work?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I focus on finding solutions, maintaining a sense of perspective, and seeking support from colleagues. I also remind myself of my accomplishments and the positive impact of my work.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What are your salary expectations for this role?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "goals",
+        "values"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "Based on my research of similar roles and my experience, I am looking for a salary in the range of [salary range]. However, I'm open to discussing this further.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Tell me about a time when you had to manage multiple projects simultaneously. How did you stay organized and on track?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "self-awareness",
+        "motivation"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I used project management tools, prioritized tasks based on deadlines and importance, and communicated regularly with stakeholders. This allowed me to stay organized and deliver all projects on time and within budget.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you ensure that you are providing excellent customer service, both internally and externally?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "culture-fit",
+        "values"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I actively listen to customer needs, respond promptly and professionally, and go the extra mile to exceed their expectations. I also treat internal colleagues as customers and provide the same level of service.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Describe a situation where you had to learn a new skill or technology quickly. What was your approach?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "motivation",
+        "goals"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I immersed myself in the subject matter, sought guidance from experts, and practiced consistently. I also broke down the learning process into smaller, manageable steps and celebrated my progress along the way.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What are your thoughts on continuous improvement, and how do you apply it to your work?",
+      "question_type": "hr",
+      "subcategory": "personality",
+      "tags": [
+        "motivation",
+        "values"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "medium",
+      "expected_answer": "I believe that continuous improvement is essential for success. I constantly seek opportunities to learn and grow, and I am always looking for ways to improve my performance and the processes around me.",
+      "is_mandatory": null
+    }
+  ],
+  "closing": [
+    {
+      "question_text": "Do you have any questions for me about the role or the company?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "This is an opportunity for the candidate to clarify any doubts and show their engagement.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What aspects of this position are most exciting to you?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should highlight specific duties or projects that align with their interests and career goals.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you envision your first few weeks in this role?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should demonstrate a proactive approach to learning and contributing.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What are you looking for in your next career move?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should express interest in growth, challenge, and alignment with company values.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Can you describe your preferred work environment?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should share preferences that align with the company's culture and values.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Outside of work, what are you passionate about?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The answer provides insight into the candidate's personality and interests.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you stay updated with industry trends?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should demonstrate a commitment to continuous learning and professional development.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What motivates you to come to work each day?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The response should demonstrate a positive attitude and drive.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How would you describe your ideal manager?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The answer should reflect their needs for support, guidance, and autonomy.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What are your salary expectations for this role?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should provide a realistic range based on market research and experience.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Are there any deal-breakers for you in a job?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should address this question tactfully and professionally.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you handle stress and pressure?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should describe coping mechanisms that are healthy and effective.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What do you know about our company culture?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should demonstrate they have researched the company and understand its values.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What are your hobbies and interests outside of work?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "This helps to understand the candidate's personality and work-life balance.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Can you describe a time you volunteered or helped others?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "Reveals the candidate's character and willingness to contribute.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Who do you look up to and why?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "This provides insight into the candidate's values and aspirations.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "How do you prefer to receive feedback on your work?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The response should indicate a proactive approach to receiving and implementing feedback.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What do you think are your greatest strengths?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The candidate should highlight strengths relevant to the role.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What is your preferred method of communication with colleagues?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "Their answer may include email, instant messaging, or face-to-face interaction.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What impact do you hope to make in this position?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The response should demonstrate an understanding of the role's requirements and the ability to contribute positively.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What skills are you hoping to develop further?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "The response should indicate self-awareness and a desire to grow.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "Is there anything else you would like us to know about you?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "This gives candidates an opportunity to address any concerns or reinforce their qualifications.",
+      "is_mandatory": null
+    },
+    {
+      "question_text": "What is one thing you've learned recently?",
+      "question_type": "hr",
+      "subcategory": "closing",
+      "tags": [
+        "conversation",
+        "culture-fit",
+        "personal",
+        "wrap-up",
+        "casual"
+      ],
+      "industry": "general",
+      "job_role": "general",
+      "difficulty": "easy",
+      "expected_answer": "Shows the candidate's eagerness to learn and adapt.",
+      "is_mandatory": null
+    }
+  ]
+}

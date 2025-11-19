@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+
+# FastAPI
+.env
+.env.local
+
+# Database
+*.db
+*.sqlite
+chroma_db/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Test outputs
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Project specific
+data/chroma_data/
+temp/
+*.bak
