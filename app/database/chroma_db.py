@@ -87,6 +87,7 @@ class ChromaDBManager:
 
             # Prepare metadata (ChromaDB requires string/int/float values)
             metadata = {
+                "question_id": str(question_id),
                 "question_type": question_type,
                 "industry": industry,
                 "job_role": job_role,

@@ -199,6 +199,52 @@ class QuestionService:
 
         return chroma_db.find_similar_questions(question_text, n_results=5, threshold=threshold)
 
+    # @staticmethod
+    # def create_question(db: Session, question_data: Dict) -> GlobalQuestion:
+    #     """
+    #     Create new question in database
+    #     Conditionally adds to ChromaDB based on question type
+    #
+    #     Args:
+    #         db: Database session
+    #         question_data: Dictionary with question fields
+    #
+    #     Returns:
+    #         Created GlobalQuestion object
+    #     """
+    #     try:
+    #         question = GlobalQuestion(**question_data)
+    #         db.add(question)
+    #         db.flush()
+    #
+    #         question_type = question_data.get('question_type', '')
+    #
+    #         # Add to ChromaDB ONLY for generic question types
+    #         if QuestionService.should_store_in_vector_db(question_type):
+    #             metadata = {
+    #                 'question_type': question_type,
+    #                 'subcategory': question_data.get('subcategory'),
+    #                 'industry': question_data.get('industry', 'general'),
+    #                 'job_role': question_data.get('job_role', 'general'),
+    #                 'difficulty': question_data.get('difficulty', 'medium'),
+    #                 'is_mandatory': str(question_data.get('is_mandatory', 'null'))
+    #             }
+    #             chroma_db.add_question(
+    #                 question.question_id,
+    #                 question.question_text,
+    #                 metadata
+    #             )
+    #             logger.info(f"Created question {question.question_id} in PostgreSQL + ChromaDB")
+    #         else:
+    #             logger.info(f"Created question {question.question_id} in PostgreSQL only (personalized)")
+    #
+    #         db.commit()
+    #         return question
+    #
+    #     except Exception as e:
+    #         db.rollback()
+    #         logger.error(f"Error creating question: {e}")
+    #         raise
     @staticmethod
     def create_question(db: Session, question_data: Dict) -> GlobalQuestion:
         """
@@ -221,18 +267,17 @@ class QuestionService:
 
             # Add to ChromaDB ONLY for generic question types
             if QuestionService.should_store_in_vector_db(question_type):
-                metadata = {
-                    'question_type': question_type,
-                    'subcategory': question_data.get('subcategory'),
-                    'industry': question_data.get('industry', 'general'),
-                    'job_role': question_data.get('job_role', 'general'),
-                    'difficulty': question_data.get('difficulty', 'medium'),
-                    'is_mandatory': str(question_data.get('is_mandatory', 'null'))
-                }
+                # Pass individual fields separately instead of metadata dict
                 chroma_db.add_question(
-                    question.question_id,
-                    question.question_text,
-                    metadata
+                    question_id=question.question_id,
+                    question_text=question.question_text,
+                    question_type=question_type,
+                    subcategory=question_data.get('subcategory'),
+                    industry=question_data.get('industry', 'general'),
+                    job_role=question_data.get('job_role', 'general'),
+                    difficulty=question_data.get('difficulty', 'medium'),
+                    tags=question_data.get('tags', []),
+                    is_static=question_data.get('is_static', 0)
                 )
                 logger.info(f"Created question {question.question_id} in PostgreSQL + ChromaDB")
             else:

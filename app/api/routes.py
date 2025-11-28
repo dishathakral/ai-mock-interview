@@ -628,12 +628,14 @@
 # #Complete Interview Workflow
 # app/api/routes.py
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status,Body
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from app.database.postgres_db import get_db
 from app.database.models import User, Interview, InterviewQuestion, UserAnswer, GlobalQuestion
 from app.services.question_service import QuestionService
+from app.services.question_generation_service import QuestionGenerationService
+from app.services.user_service import UserService
 from app import schemas
 import logging
 
@@ -1296,3 +1298,156 @@ def check_similarity(
         "has_similar": False,
         "message": "No similar questions found"
     }
+
+
+#
+# @router.post("/questions/generate/hr", response_model=schemas.QuestionResponse)
+# def generate_hr_question(
+#         user_id: int = Body(..., embed=True),
+#         job_role: str = Body(..., embed=True),
+#         industry: str = Body(..., embed=True),
+#         db: Session = Depends(get_db)
+# ):
+#     """
+#     Generate or retrieve similar HR question for given job_role and industry
+#     """
+#     try:
+#         question = QuestionGenerationService.generate_and_store_hr_question(db, job_role, industry)
+#         return question
+#     except Exception as e:
+#         logger.error(f"Error generating HR question: {e}")
+#         raise HTTPException(status_code=500, detail=str(e))
+#
+#
+# @router.post("/questions/generate/technical", response_model=schemas.QuestionResponse)
+# def generate_technical_question(
+#         user_id: int = Body(..., embed=True),
+#         job_role: str = Body(..., embed=True),
+#         skills: str = Body(default="", embed=True),
+#         db: Session = Depends(get_db)
+# ):
+#     """
+#     Generate or retrieve similar technical question for given job_role and skills
+#     """
+#     try:
+#         question = QuestionGenerationService.generate_and_store_technical_question(db, job_role, skills)
+#         return question
+#     except Exception as e:
+#         logger.error(f"Error generating technical question: {e}")
+#         raise HTTPException(status_code=500, detail=str(e))
+
+
+# @router.post("/questions/generate/experience", response_model=schemas.QuestionResponse)
+# def generate_experience_question(
+#         user_id: int = Body(..., embed=True),
+#         db: Session = Depends(get_db)
+# ):
+#     """
+#     Generate personalized experience question based on user profile
+#     """
+#     try:
+#         # Fetch user profile from DB (simplified; extend with projects in future)
+#         # user = user_service.get_user_by_id(db, user_id)
+#         user=UserService.get_user_by_id(db, user_id)
+#         if not user:
+#             raise HTTPException(status_code=404, detail="User not found")
+#
+#         # Prepare user profile string for Gemini prompt
+#         user_profile = f"Name: {user.name}. Industry: {user.industry}. Bio: {user.bio or ''}. Skills: {', '.join(user.skills) if user.skills else ''}."
+#
+#         question = QuestionGenerationService.generate_personalized_experience_question(db, user_profile)
+#         return question
+#     except Exception as e:
+#         logger.error(f"Error generating experience question: {e}")
+#         raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/questions/generate/experience", response_model=schemas.QuestionResponse)
+def generate_experience_question(
+        user_id: int = Body(..., embed=True),
+        db: Session = Depends(get_db)
+):
+    """
+    Generate personalized experience question based on user profile.
+    Includes experience details and projects.
+    """
+    try:
+        user = UserService.get_user_by_id(db, user_id)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        projects_str = ""
+        if user.projects:
+            projects_str = " Projects: " + ", ".join([p.get("title", "") for p in user.projects])
+
+        skills_str = ", ".join(user.skills) if user.skills else ""
+
+        user_profile = (
+            f"Name: {user.name}. Industry: {user.industry}."
+            f" Bio: {user.bio or ''}."
+            f" Experience: {user.experience or ''}."
+            f" Details: {user.experience_details or ''}."
+            f"{projects_str}"
+            f" Skills: {skills_str}."
+        )
+
+        question = QuestionGenerationService.generate_personalized_experience_question(db, user_profile)
+        return question
+    except Exception as e:
+        logger.error(f"Error generating experience question: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+@router.post("/questions/generate/hr", response_model=schemas.QuestionResponse)
+def generate_hr_question(
+        user_id: int = Body(..., embed=True),
+        db: Session = Depends(get_db)
+):
+    """
+    Generate or retrieve similar HR question based on user profile.
+    Since job_role is not in user table, we omit it and use available fields.
+    """
+    try:
+        user = UserService.get_user_by_id(db, user_id)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        industry = user.industry or "general"
+        # Compose user profile text including bio, experience, skills, etc.
+        user_profile = (
+            f"Industry: {industry}. "
+            f"Bio: {user.bio or ''}. "
+            f"Experience: {user.experience or ''}. "
+            f"Details: {user.experience_details or ''}. "
+            f"Skills: {', '.join(user.skills) if user.skills else ''}. "
+            f"Projects: {', '.join([p.get('title', '') for p in user.projects]) if user.projects else ''}."
+        )
+
+        # Use the user_profile as the prompt basis in your question generation service,
+        # or alternatively, just pass industry for HR questions as a fallback
+        question = QuestionGenerationService.generate_and_store_hr_question(db, job_role=industry, industry=industry)
+        return question
+    except Exception as e:
+        logger.error(f"Error generating HR question: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/questions/generate/technical", response_model=schemas.QuestionResponse)
+def generate_technical_question(
+        user_id: int = Body(..., embed=True),
+        db: Session = Depends(get_db)
+):
+    """
+    Generate or retrieve similar technical question based on user profile fields.
+    """
+    try:
+        user = UserService.get_user_by_id(db, user_id)
+        if not user:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        skills = ", ".join(user.skills) if user.skills else ""
+        industry = user.industry or "general"
+
+        # In absence of job_role, we use industry or generic role placeholder
+        question = QuestionGenerationService.generate_and_store_technical_question(db, job_role=industry, skills=skills)
+        return question
+    except Exception as e:
+        logger.error(f"Error generating technical question: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

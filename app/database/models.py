@@ -17,7 +17,9 @@ class User(Base):
     industry = Column(String(100), index=True)
     industry_insight = Column(Text)
     bio = Column(Text)
-    experience = Column(String(50))  # e.g., "0-2 years", "3-5 years"
+    experience = Column(String(50))# e.g., "0-2 years", "3-5 years"
+    experience_details = Column(Text, nullable=True)  # Detailed summary of experience
+    projects = Column(JSON, nullable=True)  # List of projects with details, as JSON array
     skills = Column(JSON)  # Store as JSON array
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())

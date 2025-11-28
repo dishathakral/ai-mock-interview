@@ -20,6 +20,12 @@ class Settings(BaseSettings):
 
     # Gemini API Settings
     GEMINI_API_KEY: str  # Add this line
+    GEMINI_MODEL: str = "gemini-2.0-flash"
+    GEMINI_TEMPERATURE: float = 0.7  # Add this line
+    GEMINI_MAX_TOKENS: int = 1000  # Add this line
+
+    # Similarity threshold for duplicate detection
+    SIMILARITY_THRESHOLD: float = 0.85  # Add this line
 
     class Config:
         env_file = '/Users/disha/PycharmProjects/ai-mock-interview/.env'

@@ -4,7 +4,7 @@ Simplified with essential validations only
 """
 
 from pydantic import BaseModel, EmailStr, Field, field_validator
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any,Union
 from datetime import datetime
 from enum import Enum
 
@@ -49,6 +49,8 @@ class UserCreate(BaseModel):
     bio: Optional[str] = None
     experience: Optional[str] = None
     skills: Optional[List[str]] = None
+    experience_details: Union[list, None] = None  # New field, JSON array
+    projects: Union[list, None] = None
 
 
 class UserUpdate(BaseModel):

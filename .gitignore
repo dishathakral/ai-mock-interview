@@ -38,3 +38,4 @@ htmlcov/
 data/chroma_data/
 temp/
 *.bak
+chroma_data/
