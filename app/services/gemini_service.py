@@ -91,3 +91,22 @@ class GeminiService:
             f"Based on the following user profile, generate a personalized experience question: {user_profile}"
         )
         return GeminiService.generate_question(prompt)
+
+    # 🔥 ADD THIS METHOD to GeminiService class
+
+    @staticmethod
+    def generate_question_for_type(question_type: str, user) -> str:
+        """Generate based on type + user profile"""
+        job_role = getattr(user, 'job_role', 'Software Engineer')
+        skills_str = ' '.join(user.skills) if hasattr(user, 'skills') and user.skills else ''
+
+        if question_type == "hr":
+            return GeminiService.generate_hr_question(job_role, user.industry)
+        elif question_type == "technical":
+            return GeminiService.generate_technical_question(job_role, skills_str)
+        elif question_type == "experience":
+            profile = f"Profile: {user.bio or ''}. Skills: {skills_str}"
+            return GeminiService.generate_experience_question(profile)
+        else:
+            return GeminiService.generate_question(f"Generate {question_type} question for {user.industry}")
+

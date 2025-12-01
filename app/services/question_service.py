@@ -155,7 +155,7 @@ class QuestionService:
         query = db.query(GlobalQuestion).filter(
             GlobalQuestion.is_mandatory == True,
             GlobalQuestion.is_static == 1
-        )
+        ).order_by(GlobalQuestion.question_id.asc())
 
         if subcategory:
             query = query.filter(GlobalQuestion.subcategory == subcategory)
@@ -449,3 +449,53 @@ class QuestionService:
             question.usage_count += 1
             db.commit()
             logger.debug(f"Incremented usage count for question {question_id}")
+
+    # 🔥 ADD THESE 3 METHODS (copy-paste exactly)
+
+    @staticmethod
+    def get_user_profile(db: Session, user_id: int):
+        """Get user profile for personalization"""
+        from app.database.models import User
+        user = db.query(User).filter(User.id == user_id).first()
+        if not user:
+            raise ValueError(f"User {user_id} not found")
+        return user
+
+    @staticmethod
+    def get_question_count_by_type_jobrole(db: Session, question_type: str, job_role: str) -> int:
+        """Count questions by type + job_role (YOUR threshold logic)"""
+        from sqlalchemy import func
+        count = db.query(func.count(GlobalQuestion.question_id)).filter(
+            and_(
+                GlobalQuestion.question_type == question_type,
+                GlobalQuestion.job_role == job_role
+            )
+        ).scalar() or 0
+        return count
+
+    @staticmethod
+    def store_question(db: Session, question_text: str, question_type: str, industry: str,
+                       job_role: str = None, is_reusable: bool = True) -> GlobalQuestion:
+        """Store reusable question (uses your existing create_question)"""
+        question_data = {
+            'question_text': question_text,
+            'question_type': question_type,
+            'industry': industry,
+            'job_role': job_role,
+            'is_static': 0,
+            'is_mandatory': False,
+            'difficulty': 'medium'
+        }
+        return QuestionService.create_question(db, question_data)
+
+    @staticmethod
+    def create_temp_question(db: Session, question_text: str, question_type: str, user_id: int) -> GlobalQuestion:
+        """Temp question for experience (no Chroma)"""
+        question_data = {
+            'question_text': question_text,
+            'question_type': question_type,
+            'is_static': 0,
+            'is_mandatory': False
+        }
+        return QuestionService.create_question(db, question_data)
+

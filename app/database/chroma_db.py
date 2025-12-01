@@ -473,6 +473,55 @@ class ChromaDBManager:
             logger.error(f"Error resetting collection: {e}")
             raise
 
+    def query_similar_questions(
+            self,
+            embedding: List[float],
+            question_type: Optional[str] = None,
+            job_role: Optional[str] = None,
+            limit: int = 5,
+            threshold: float = 0.75
+    ) -> List[Dict]:
+        """
+        🔥 PHASE 3: Query similar questions by embedding + filters
+        Used by InterviewOrchestrator for profile matching
+        """
+        try:
+            # Build metadata filter
+            where_filter = {}
+            if question_type:
+                where_filter["question_type"] = question_type
+            if job_role:
+                where_filter["job_role"] = job_role
+
+            results = self._collection.query(
+                query_embeddings=[embedding],
+                n_results=limit,
+                where=where_filter,
+                include=["documents", "metadatas", "distances"]
+            )
+
+            # Filter by similarity threshold + format for orchestrator
+            similar_questions = []
+            if results['ids'] and len(results['ids'][0]) > 0:
+                for i in range(len(results['ids'][0])):
+                    distance = results['distances'][0][i]
+                    similarity = 1 - (distance / 2)  # L2 → cosine
+
+                    if similarity >= threshold:
+                        similar_questions.append({
+                            'payload': results['metadatas'][0][i],  # For orchestrator
+                            'question_id': int(results['ids'][0][i]),
+                            'question_text': results['documents'][0][i],
+                            'similarity': similarity
+                        })
+
+            logger.info(f"🔍 Chroma query: {len(similar_questions)} results (threshold={threshold})")
+            return similar_questions
+
+        except Exception as e:
+            logger.error(f"Error in query_similar_questions: {e}")
+            return []
+
 
 # Create singleton instance
 chroma_db = ChromaDBManager()

@@ -1,632 +1,5 @@
-# """
-# API Routes for AI Mock Interview System
-# Complete endpoints supporting all basic operations
-# """
-#
-# from fastapi import APIRouter, Depends, HTTPException, status, Query
-# from sqlalchemy.orm import Session
-# from app.database.postgres_db import get_db
-# from app.database.models import GlobalQuestion, Interview, UserAnswer, InterviewQuestion
-# from app.services.question_service import QuestionService
-# from app.services.user_service import UserService
-# from app import schemas
-# from typing import List, Optional
-# from datetime import datetime
-# import logging
-# from sqlalchemy import text
-#
-# logger = logging.getLogger(__name__)
-# router = APIRouter()
-#
-#
-# # ============================================================
-# # USER ENDPOINTS
-# # ============================================================
-#
-# @router.post("/users/", response_model=schemas.UserResponse, status_code=status.HTTP_201_CREATED)
-# def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
-#     """
-#     Create a new user
-#     - Checks for duplicate email
-#     - Returns created user with ID
-#     """
-#     existing_user = UserService.get_user_by_email(db, user.email)
-#     if existing_user:
-#         raise HTTPException(
-#             status_code=status.HTTP_400_BAD_REQUEST,
-#             detail=f"User with email {user.email} already exists"
-#         )
-#
-#     user_data = user.model_dump()
-#     new_user = UserService.create_user(db, user_data)
-#     logger.info(f"Created user: {new_user.email}")
-#     return new_user
-#
-#
-# @router.get("/users/{user_id}", response_model=schemas.UserResponse)
-# def get_user(user_id: int, db: Session = Depends(get_db)):
-#     """Get user by ID"""
-#     user = UserService.get_user_by_id(db, user_id)
-#     if not user:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"User with ID {user_id} not found"
-#         )
-#     return user
-#
-#
-# @router.put("/users/{user_id}", response_model=schemas.UserResponse)
-# def update_user(
-#         user_id: int,
-#         user_update: schemas.UserUpdate,
-#         db: Session = Depends(get_db)
-# ):
-#     """Update user information"""
-#     user = UserService.get_user_by_id(db, user_id)
-#     if not user:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"User with ID {user_id} not found"
-#         )
-#
-#     update_data = user_update.model_dump(exclude_unset=True)
-#     for field, value in update_data.items():
-#         setattr(user, field, value)
-#
-#     db.commit()
-#     db.refresh(user)
-#     logger.info(f"Updated user {user_id}")
-#     return user
-#
-#
-# # ============================================================
-# # INTERVIEW ENDPOINTS
-# # ============================================================
-#
-# @router.post("/interviews/start", response_model=schemas.InterviewResponse, status_code=status.HTTP_201_CREATED)
-# def start_interview(interview_data: schemas.InterviewStart, db: Session = Depends(get_db)):
-#     """
-#     Start a new interview session
-#     - Validates user exists
-#     - Creates interview record
-#     - Returns interview ID and details
-#     """
-#     user = UserService.get_user_by_id(db, interview_data.user_id)
-#     if not user:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"User with ID {interview_data.user_id} not found"
-#         )
-#
-#     interview = UserService.start_interview(
-#         db,
-#         interview_data.user_id,
-#         interview_data.job_role,
-#         interview_data.industry
-#     )
-#     logger.info(f"Started interview {interview.interview_id} for user {interview_data.user_id}")
-#     return interview
-#
-#
-# @router.get("/interviews/{interview_id}", response_model=schemas.InterviewResponse)
-# def get_interview(interview_id: int, db: Session = Depends(get_db)):
-#     """Get interview by ID"""
-#     interview = UserService.get_interview(db, interview_id)
-#     if not interview:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"Interview with ID {interview_id} not found"
-#         )
-#     return interview
-#
-#
-# @router.get("/interviews/user/{user_id}", response_model=List[schemas.InterviewResponse])
-# def get_user_interviews(
-#         user_id: int,
-#         status_filter: Optional[str] = Query(None, description="Filter by status"),
-#         limit: int = Query(10, ge=1, le=100),
-#         db: Session = Depends(get_db)
-# ):
-#     """
-#     Get all interviews for a user
-#     - Optional status filter (in_progress, completed, abandoned)
-#     - Pagination support
-#     """
-#     query = db.query(Interview).filter(Interview.user_id == user_id)
-#
-#     if status_filter:
-#         query = query.filter(Interview.status == status_filter)
-#
-#     interviews = query.order_by(Interview.started_at.desc()).limit(limit).all()
-#     return interviews
-#
-#
-# @router.put("/interviews/{interview_id}/complete", response_model=schemas.InterviewResponse)
-# def complete_interview(
-#         interview_id: int,
-#         completion_data: schemas.InterviewComplete,
-#         db: Session = Depends(get_db)
-# ):
-#     """
-#     Complete an interview
-#     - Updates status to completed
-#     - Sets completion timestamp
-#     - Optional: Add final score
-#     """
-#     interview = db.query(Interview).filter(
-#         Interview.interview_id == interview_id
-#     ).first()
-#
-#     if not interview:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"Interview with ID {interview_id} not found"
-#         )
-#
-#     if interview.status == "completed":
-#         raise HTTPException(
-#             status_code=status.HTTP_400_BAD_REQUEST,
-#             detail="Interview is already completed"
-#         )
-#
-#     interview.status = "completed"
-#     interview.completed_at = datetime.now()
-#     if completion_data.score is not None:
-#         interview.score = completion_data.score
-#
-#     db.commit()
-#     db.refresh(interview)
-#     logger.info(f"Completed interview {interview_id}")
-#     return interview
-#
-#
-# # ============================================================
-# # QUESTION ENDPOINTS
-# # ============================================================
-#
-# @router.get("/questions/", response_model=List[schemas.QuestionSummary])
-# def get_questions(
-#         question_type: Optional[str] = Query(None, description="Filter by type"),
-#         subcategory: Optional[str] = Query(None, description="Filter by subcategory"),
-#         difficulty: Optional[str] = Query(None, description="Filter by difficulty"),
-#         industry: Optional[str] = Query(None, description="Filter by industry"),
-#         job_role: Optional[str] = Query(None, description="Filter by job role"),
-#         is_mandatory: Optional[bool] = Query(None, description="Filter by mandatory status"),
-#         limit: int = Query(10, ge=1, le=100),
-#         offset: int = Query(0, ge=0),
-#         db: Session = Depends(get_db)
-# ):
-#     """
-#     Get questions with flexible filtering
-#     - Supports multiple filter options
-#     - Pagination
-#     - Works for any question category
-#     """
-#     query = db.query(GlobalQuestion)
-#
-#     if question_type:
-#         query = query.filter(GlobalQuestion.question_type == question_type)
-#
-#     if subcategory:
-#         query = query.filter(GlobalQuestion.subcategory == subcategory)
-#
-#     if difficulty:
-#         query = query.filter(GlobalQuestion.difficulty == difficulty)
-#
-#     if industry:
-#         query = query.filter(GlobalQuestion.industry == industry)
-#
-#     if job_role:
-#         query = query.filter(GlobalQuestion.job_role == job_role)
-#
-#     if is_mandatory is not None:
-#         query = query.filter(GlobalQuestion.is_mandatory == is_mandatory)
-#
-#     questions = query.offset(offset).limit(limit).all()
-#     return questions
-#
-#
-# @router.get("/questions/{question_id}", response_model=schemas.QuestionResponse)
-# def get_question(question_id: int, db: Session = Depends(get_db)):
-#     """Get specific question by ID"""
-#     question = QuestionService.get_question_by_id(db, question_id)
-#     if not question:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"Question with ID {question_id} not found"
-#         )
-#     return question
-#
-#
-# @router.get("/questions/category/{subcategory}", response_model=List[schemas.QuestionSummary])
-# def get_questions_by_category(
-#         subcategory: str,
-#         limit: int = Query(10, ge=1, le=50),
-#         mandatory_only: bool = Query(False),
-#         db: Session = Depends(get_db)
-# ):
-#     """
-#     Get questions by category (introductory, behavioral, etc.)
-#     - Works for any category
-#     - Optional: Filter only mandatory questions
-#     """
-#     questions = QuestionService.get_questions_by_category(
-#         db,
-#         subcategory,
-#         limit,
-#         mandatory_only=mandatory_only
-#     )
-#
-#     if not questions:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"No questions found for category: {subcategory}"
-#         )
-#
-#     return questions
-#
-#
-# @router.get("/questions/mandatory/all", response_model=List[schemas.QuestionResponse])
-# def get_all_mandatory_questions(
-#         subcategory: Optional[str] = Query(None, description="Filter by subcategory"),
-#         db: Session = Depends(get_db)
-# ):
-#     """Get all mandatory questions, optionally filtered by subcategory"""
-#     questions = QuestionService.get_mandatory_questions(db, subcategory)
-#     return questions
-#
-#
-# @router.post("/questions/", response_model=schemas.QuestionResponse, status_code=status.HTTP_201_CREATED)
-# def create_question(question: schemas.QuestionCreate, db: Session = Depends(get_db)):
-#     """
-#     Create a new question
-#     - Generic questions (hr, technical, behavioral): Checked for similarity, added to ChromaDB
-#     - Personalized questions (experience, project): No similarity check, PostgreSQL only
-#     - Works for any question category
-#     """
-#     question_type = question.question_type.lower()
-#
-#     # Only check similarity for generic question types
-#     if QuestionService.should_store_in_vector_db(question_type):
-#         similar = QuestionService.check_question_similarity(
-#             question.question_text,
-#             question_type,
-#             threshold=0.85
-#         )
-#
-#         if similar:
-#             raise HTTPException(
-#                 status_code=status.HTTP_409_CONFLICT,
-#                 detail=f"Similar question exists with {similar[0]['similarity']:.1%} similarity: {similar[0]['question_text'][:100]}..."
-#             )
-#
-#     # Create question (adds to PostgreSQL + conditionally to ChromaDB)
-#     question_data = question.model_dump()
-#     new_question = QuestionService.create_question(db, question_data)
-#
-#     storage_info = "PostgreSQL + ChromaDB" if QuestionService.should_store_in_vector_db(
-#         question_type) else "PostgreSQL only"
-#     logger.info(f"Created question {new_question.question_id} ({storage_info}): {new_question.question_text[:50]}...")
-#
-#     return new_question
-#
-#
-# @router.put("/questions/{question_id}", response_model=schemas.QuestionResponse)
-# def update_question(
-#         question_id: int,
-#         question_update: schemas.QuestionUpdate,
-#         db: Session = Depends(get_db)
-# ):
-#     """Update question - updates both PostgreSQL and ChromaDB if applicable"""
-#     update_data = question_update.model_dump(exclude_unset=True)
-#     updated_question = QuestionService.update_question(db, question_id, update_data)
-#
-#     if not updated_question:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"Question with ID {question_id} not found"
-#         )
-#
-#     return updated_question
-#
-#
-# @router.delete("/questions/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
-# def delete_question(question_id: int, db: Session = Depends(get_db)):
-#     """Delete question from both PostgreSQL and ChromaDB"""
-#     deleted = QuestionService.delete_question(db, question_id)
-#
-#     if not deleted:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"Question with ID {question_id} not found"
-#         )
-#
-#     return None
-#
-#
-# @router.post("/questions/check-similarity", response_model=List[schemas.SimilarQuestionResponse])
-# def check_similarity(
-#         question_text: str = Query(..., min_length=10),
-#         question_type: str = Query(..., description="Type of question"),
-#         threshold: float = Query(0.85, ge=0.0, le=1.0),
-# ):
-#     """
-#     Check if similar questions exist
-#     - Uses vector similarity search for generic question types
-#     - Returns empty list for personalized question types
-#     - Returns questions above threshold
-#     """
-#     similar = QuestionService.check_question_similarity(
-#         question_text,
-#         question_type,
-#         threshold
-#     )
-#     return similar
-#
-#
-# @router.get("/questions/stats/summary", response_model=schemas.QuestionStatsResponse)
-# def get_question_stats(db: Session = Depends(get_db)):
-#     """
-#     Get comprehensive question statistics
-#     - Total count
-#     - Mandatory vs optional
-#     - Breakdown by subcategory
-#     """
-#     stats = QuestionService.get_question_stats(db)
-#     return stats
-#
-#
-# @router.get("/questions/role/{job_role}/count")
-# def get_role_question_count(
-#         job_role: str,
-#         industry: str = Query("general"),
-#         db: Session = Depends(get_db)
-# ):
-#     """Get question count for specific job role"""
-#     counts = QuestionService.get_question_count_by_role(db, job_role, industry)
-#     return {
-#         "job_role": job_role,
-#         "industry": industry,
-#         "counts": counts,
-#         "total": sum(counts.values())
-#     }
-#
-#
-# # ============================================================
-# # ANSWER ENDPOINTS
-# # ============================================================
-#
-# @router.post("/answers/", response_model=schemas.AnswerResponse, status_code=status.HTTP_201_CREATED)
-# def submit_answer(answer: schemas.AnswerSubmit, db: Session = Depends(get_db)):
-#     """
-#     Submit an answer to a question
-#     - Validates interview is in progress
-#     - Increments question usage count
-#     - Updates interview question count
-#     """
-#     interview = db.query(Interview).filter(
-#         Interview.interview_id == answer.interview_id
-#     ).first()
-#
-#     if not interview:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"Interview with ID {answer.interview_id} not found"
-#         )
-#
-#     if interview.status != "in_progress":
-#         raise HTTPException(
-#             status_code=status.HTTP_400_BAD_REQUEST,
-#             detail=f"Interview is not in progress (status: {interview.status})"
-#         )
-#
-#     # Create answer
-#     new_answer = UserAnswer(
-#         interview_id=answer.interview_id,
-#         question_id=answer.question_id,
-#         user_id=answer.user_id,
-#         answer_text=answer.answer_text,
-#         expected_answer=answer.expected_answer
-#     )
-#
-#     db.add(new_answer)
-#
-#     # Update stats
-#     QuestionService.increment_usage_count(db, answer.question_id)
-#     interview.total_questions += 1
-#
-#     db.commit()
-#     db.refresh(new_answer)
-#
-#     logger.info(f"Answer submitted for question {answer.question_id} in interview {answer.interview_id}")
-#     return new_answer
-#
-#
-# @router.get("/answers/{answer_id}", response_model=schemas.AnswerResponse)
-# def get_answer(answer_id: int, db: Session = Depends(get_db)):
-#     """Get specific answer by ID"""
-#     answer = db.query(UserAnswer).filter(UserAnswer.id == answer_id).first()
-#
-#     if not answer:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"Answer with ID {answer_id} not found"
-#         )
-#
-#     return answer
-#
-#
-# @router.get("/answers/interview/{interview_id}", response_model=List[schemas.AnswerResponse])
-# def get_interview_answers(interview_id: int, db: Session = Depends(get_db)):
-#     """
-#     Get all answers for an interview
-#     - Ordered by submission time
-#     - Includes scores if available
-#     """
-#     answers = db.query(UserAnswer).filter(
-#         UserAnswer.interview_id == interview_id
-#     ).order_by(UserAnswer.submitted_at).all()
-#
-#     if not answers:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"No answers found for interview {interview_id}"
-#         )
-#
-#     return answers
-#
-#
-# @router.get("/answers/interview/{interview_id}/detailed", response_model=List[schemas.AnswerDetailedResponse])
-# def get_interview_answers_detailed(interview_id: int, db: Session = Depends(get_db)):
-#     """
-#     Get detailed answers with question context
-#     - Includes question text and type
-#     - Useful for generating reports
-#     """
-#     results = db.query(
-#         UserAnswer,
-#         InterviewQuestion.question_text,
-#         InterviewQuestion.question_type
-#     ).join(
-#         InterviewQuestion,
-#         UserAnswer.question_id == InterviewQuestion.id
-#     ).filter(
-#         UserAnswer.interview_id == interview_id
-#     ).all()
-#
-#     if not results:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"No answers found for interview {interview_id}"
-#         )
-#
-#     detailed_answers = []
-#     for answer, question_text, question_type in results:
-#         answer_dict = {
-#             "id": answer.id,
-#             "interview_id": answer.interview_id,
-#             "question_id": answer.question_id,
-#             "user_id": answer.user_id,
-#             "answer_text": answer.answer_text,
-#             "expected_answer": answer.expected_answer,
-#             "submitted_at": answer.submitted_at,
-#             "score": answer.score,
-#             "question_text": question_text,
-#             "question_type": question_type
-#         }
-#         detailed_answers.append(schemas.AnswerDetailedResponse(**answer_dict))
-#
-#     return detailed_answers
-#
-#
-# @router.put("/answers/{answer_id}", response_model=schemas.AnswerResponse)
-# def update_answer(
-#         answer_id: int,
-#         answer_update: schemas.AnswerUpdate,
-#         db: Session = Depends(get_db)
-# ):
-#     """Update answer (edit text or add score)"""
-#     answer = db.query(UserAnswer).filter(UserAnswer.id == answer_id).first()
-#
-#     if not answer:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"Answer with ID {answer_id} not found"
-#         )
-#
-#     update_data = answer_update.model_dump(exclude_unset=True)
-#     for field, value in update_data.items():
-#         setattr(answer, field, value)
-#
-#     db.commit()
-#     db.refresh(answer)
-#     logger.info(f"Updated answer {answer_id}")
-#     return answer
-#
-#
-# # ============================================================
-# # UTILITY ENDPOINTS
-# # ============================================================
-#
-# @router.get("/health", response_model=schemas.HealthCheckResponse)
-# def health_check(db: Session = Depends(get_db)):
-#     """
-#     Health check endpoint
-#     - Checks database connection
-#     - Checks vector database
-#     - Returns system status
-#     """
-#     from app.database.chroma_db import chroma_db
-#
-#     try:
-#         db.execute(text("SELECT 1"))
-#         db_status = "connected"
-#     except Exception as e:
-#         logger.error(f"Database health check failed: {e}")
-#         db_status = "disconnected"
-#
-#     try:
-#         vector_count = chroma_db.get_collection_count()
-#         vector_status = f"connected ({vector_count} questions)"
-#     except Exception as e:
-#         logger.error(f"Vector DB health check failed: {e}")
-#         vector_status = "disconnected"
-#
-#     return schemas.HealthCheckResponse(
-#         status="healthy" if db_status == "connected" else "unhealthy",
-#         service="AI Mock Interview API",
-#         version="1.0.0",
-#         database=db_status,
-#         vector_db=vector_status
-#     )
-#
-#
-# @router.post("/load-static-questions", response_model=schemas.SuccessResponse)
-# def load_static_questions(
-#         bulk_load: schemas.BulkQuestionLoad,
-#         db: Session = Depends(get_db)
-# ):
-#     """
-#     Load static questions from JSON file
-#     - Batch import questions
-#     - All static questions loaded into both PostgreSQL and ChromaDB
-#     - Checks for duplicates
-#     """
-#     try:
-#         count = QuestionService.load_static_questions(db, bulk_load.file_path)
-#         return schemas.SuccessResponse(
-#             message=f"Successfully loaded {count} questions",
-#             data={
-#                 "count": count,
-#                 "file_path": bulk_load.file_path,
-#                 "note": "All static questions added to both PostgreSQL and ChromaDB"
-#             }
-#         )
-#     except FileNotFoundError:
-#         raise HTTPException(
-#             status_code=status.HTTP_404_NOT_FOUND,
-#             detail=f"File not found: {bulk_load.file_path}"
-#         )
-#     except Exception as e:
-#         logger.error(f"Error loading questions: {e}")
-#         raise HTTPException(
-#             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-#             detail=f"Error loading questions: {str(e)}"
-#         )
-#
-#
-# @router.get("/")
-# def root():
-#     """Root endpoint"""
-#     return {
-#         "message": "AI Mock Interview API",
-#         "version": "1.0.0",
-#         "docs": "/docs",
-#         "health": "/api/v1/health"
-#     }
-#
-# #Complete Interview Workflow
-# app/api/routes.py
+
+from datetime import datetime
 
 from fastapi import APIRouter, Depends, HTTPException, status,Body
 from sqlalchemy.orm import Session
@@ -636,6 +9,7 @@ from app.database.models import User, Interview, InterviewQuestion, UserAnswer, 
 from app.services.question_service import QuestionService
 from app.services.question_generation_service import QuestionGenerationService
 from app.services.user_service import UserService
+from app.services.interview_orchestrator import InterviewOrchestrator
 from app import schemas
 import logging
 
@@ -724,29 +98,29 @@ def get_user_interviews(
 # INTERVIEW FLOW
 # ==========================================
 
-@router.post("/interviews/start", response_model=schemas.InterviewResponse, status_code=status.HTTP_201_CREATED)
-def start_interview(interview_data: schemas.InterviewStart, db: Session = Depends(get_db)):
-    """
-    Step 1: Start interview
-    Creates interview session in 'in_progress' status
-    """
-    user = db.query(User).filter(User.id == interview_data.user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-
-    interview = Interview(
-        user_id=interview_data.user_id,
-        status="in_progress",
-        industry=interview_data.industry,
-        job_role=interview_data.job_role,
-        total_questions=0
-    )
-    db.add(interview)
-    db.commit()
-    db.refresh(interview)
-
-    logger.info(f"Interview {interview.interview_id} started for user {user.id}")
-    return interview
+# @router.post("/interviews/start", response_model=schemas.InterviewResponse, status_code=status.HTTP_201_CREATED)
+# def start_interview(interview_data: schemas.InterviewStart, db: Session = Depends(get_db)):
+#     """
+#     Step 1: Start interview
+#     Creates interview session in 'in_progress' status
+#     """
+#     user = db.query(User).filter(User.id == interview_data.user_id).first()
+#     if not user:
+#         raise HTTPException(status_code=404, detail="User not found")
+#
+#     interview = Interview(
+#         user_id=interview_data.user_id,
+#         status="in_progress",
+#         industry=interview_data.industry,
+#         job_role=interview_data.job_role,
+#         total_questions=0
+#     )
+#     db.add(interview)
+#     db.commit()
+#     db.refresh(interview)
+#
+#     logger.info(f"Interview {interview.interview_id} started for user {user.id}")
+#     return interview
 
 
 @router.get("/interviews/{interview_id}/fetch-next-question")
@@ -932,86 +306,6 @@ def ask_question(
     }
 
 
-@router.post("/interviews/{interview_id}/questions/{interview_question_id}/answer", status_code=status.HTTP_201_CREATED)
-def submit_answer(
-        interview_id: int,
-        interview_question_id: int,
-        answer_data: schemas.AnswerSubmit,
-        db: Session = Depends(get_db)
-):
-    """
-    Step 4: ANSWER the question
-    """
-    # Verify interview
-    interview = db.query(Interview).filter(
-        Interview.interview_id == interview_id
-    ).first()
-
-    if not interview:
-        raise HTTPException(status_code=404, detail="Interview not found")
-
-    if interview.status != "in_progress":
-        raise HTTPException(
-            status_code=400,
-            detail=f"Cannot answer questions in {interview.status} interview"
-        )
-
-    # Verify question exists in THIS interview
-    interview_question = db.query(InterviewQuestion).filter(
-        InterviewQuestion.id == interview_question_id,
-        InterviewQuestion.interview_id == interview_id
-    ).first()
-
-    if not interview_question:
-        raise HTTPException(
-            status_code=404,
-            detail="Question not found in this interview. Must call /ask-question first."
-        )
-
-    # Check if already answered
-    existing_answer = db.query(UserAnswer).filter(
-        UserAnswer.question_id == interview_question_id,
-        UserAnswer.interview_id == interview_id
-    ).first()
-
-    if existing_answer:
-        raise HTTPException(
-            status_code=400,
-            detail="Answer already submitted for this question"
-        )
-
-    # Create answer
-    user_answer = UserAnswer(
-        interview_id=interview_id,
-        question_id=interview_question_id,
-        user_id=interview.user_id,
-        answer_text=answer_data.answer_text,
-        expected_answer=None,
-        score=None  # Will be evaluated in Phase 3
-    )
-
-    db.add(user_answer)
-
-    # Increment usage count
-    if interview_question.question_id:
-        global_q = db.query(GlobalQuestion).filter(
-            GlobalQuestion.question_id == interview_question.question_id
-        ).first()
-        if global_q:
-            global_q.usage_count += 1
-
-    db.commit()
-    db.refresh(user_answer)
-
-    logger.info(f"Answer submitted for question {interview_question_id}")
-
-    return {
-        "answer_id": user_answer.id,
-        "interview_id": interview_id,
-        "question_id": interview_question_id,
-        "status": "submitted",
-        "message": "Answer recorded. Call /fetch-next-question to continue."
-    }
 
 
 @router.put("/interviews/{interview_id}/complete", response_model=schemas.InterviewResponse)
@@ -1275,7 +569,7 @@ def get_question_statistics(db: Session = Depends(get_db)):
 def check_similarity(
         question_text: str,
         question_type: str = "hr",
-        threshold: float = 0.85
+        threshold: float = 0.6
 ):
     """
     Check if similar question exists in ChromaDB
@@ -1382,7 +676,7 @@ def generate_experience_question(
         skills_str = ", ".join(user.skills) if user.skills else ""
 
         user_profile = (
-            f"Name: {user.name}. Industry: {user.industry}."
+            f"Name: {user.name}. Industry: {user.industry}.job role:{user.job_role}"
             f" Bio: {user.bio or ''}."
             f" Experience: {user.experience or ''}."
             f" Details: {user.experience_details or ''}."
@@ -1413,6 +707,7 @@ def generate_hr_question(
         # Compose user profile text including bio, experience, skills, etc.
         user_profile = (
             f"Industry: {industry}. "
+            f"job_role: {user.job_role}. "
             f"Bio: {user.bio or ''}. "
             f"Experience: {user.experience or ''}. "
             f"Details: {user.experience_details or ''}. "
@@ -1429,6 +724,29 @@ def generate_hr_question(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# @router.post("/questions/generate/technical", response_model=schemas.QuestionResponse)
+# def generate_technical_question(
+#         user_id: int = Body(..., embed=True),
+#         db: Session = Depends(get_db)
+# ):
+#     """
+#     Generate or retrieve similar technical question based on user profile fields.
+#     """
+#     try:
+#         user = UserService.get_user_by_id(db, user_id)
+#         if not user:
+#             raise HTTPException(status_code=404, detail="User not found")
+#
+#         skills = ", ".join(user.skills) if user.skills else ""
+#         industry = user.industry or "general"
+#
+#         # In absence of job_role, we use industry or generic role placeholder
+#         question = QuestionGenerationService.generate_and_store_technical_question(db, job_role=industry, skills=skills)
+#         return question
+#     except Exception as e:
+#         logger.error(f"Error generating technical question: {e}")
+#         raise HTTPException(status_code=500, detail=str(e))
+
 @router.post("/questions/generate/technical", response_model=schemas.QuestionResponse)
 def generate_technical_question(
         user_id: int = Body(..., embed=True),
@@ -1442,12 +760,115 @@ def generate_technical_question(
         if not user:
             raise HTTPException(status_code=404, detail="User not found")
 
+        # ✅ NEW: Use job_role column, fallback to industry
+        job_role = getattr(user, 'job_role', user.industry or 'Software Engineer')
         skills = ", ".join(user.skills) if user.skills else ""
         industry = user.industry or "general"
 
-        # In absence of job_role, we use industry or generic role placeholder
-        question = QuestionGenerationService.generate_and_store_technical_question(db, job_role=industry, skills=skills)
+        logger.info(f"🔍 Technical Q for user={user_id}, role={job_role}, skills={skills[:50]}...")
+
+        # Keep your existing Phase 2 service call
+        question = QuestionGenerationService.generate_and_store_technical_question(
+            db,
+            job_role=job_role,  # ✅ Now uses real job_role
+            skills=skills
+        )
         return question
+
     except Exception as e:
         logger.error(f"Error generating technical question: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+# 🔥 ADD THESE 4 ENDPOINTS (append to existing router)
+@router.post("/interviews/", response_model=dict)
+async def create_interview(request: schemas.CreateInterviewRequest, db: Session = Depends(get_db)):
+    """🎯 PHASE 3: Create new interview"""
+    user = db.query(User).filter(User.id == request.user_id).first()
+    if not user:
+        raise HTTPException(404, "User not found")
+
+    # Create interview record
+    interview = Interview(
+        user_id=request.user_id,
+        status="active",
+        started_at=datetime.utcnow()
+    )
+    db.add(interview)
+    db.commit()
+    db.refresh(interview)
+
+    logger.info(f"✅ Created interview {interview.interview_id} for user {user.id}")
+    return {"interview_id": interview.interview_id, "status": interview.status}
+
+
+@router.post("/interviews/{interview_id}/start")
+async def start_interview(interview_id: int, db: Session = Depends(get_db)):
+    """🎯 PHASE 3: Mark interview as started (no pre-loading)"""
+    interview = db.query(Interview).filter(Interview.interview_id == interview_id).first()
+    if not interview:
+        raise HTTPException(404, "Interview not found")
+
+    # Just mark as started - NO question pre-loading!
+    interview.status = "in_progress"
+    db.commit()
+
+    orchestrator = InterviewOrchestrator(db)
+
+    # Return FIRST question immediately (user can answer it)
+    first_question = orchestrator.get_next_question(interview_id)
+
+    logger.info(f"Interview {interview_id} started - first question served")
+
+    return {
+        "interview_id": interview_id,
+        "first_question": first_question,  # Single question object
+        "message": "Interview started - answer first question to continue",
+        "next_action": "POST /interviews/{interview_id}/next-question"
+    }
+
+
+@router.post("/interviews/{interview_id}/next-question")
+async def next_question(interview_id: int, db: Session = Depends(get_db)):
+    """🎯 PHASE 3: SINGLE ENDPOINT - Smart next question"""
+    orchestrator = InterviewOrchestrator(db)
+    result = orchestrator.get_next_question(interview_id)
+    return result
+
+
+@router.post("/interviews/{interview_id}/questions/{interview_question_id}/answer")
+async def submit_answer(
+        interview_id: int,
+        interview_question_id: int,
+        answer: schemas.AnswerRequest,
+        db: Session = Depends(get_db)
+):
+    """🎯 PHASE 3: Store answer + prepare next"""
+    orchestrator = InterviewOrchestrator(db)
+    result = orchestrator.submit_answer(interview_question_id, answer.answer_text)
+    return result
+
+@router.get("/interviews/{interview_id}/status")
+async def get_interview_status(interview_id: int, db: Session = Depends(get_db)):
+    interview = db.query(Interview).filter(
+        Interview.interview_id == interview_id
+    ).first()
+    if not interview:
+        raise HTTPException(status_code=404, detail="Interview not found")
+
+    # ✅ count answers from UserAnswer
+    answered_count = (
+        db.query(func.count(UserAnswer.id))
+        .filter(UserAnswer.interview_id == interview_id)
+        .scalar()
+        or 0
+    )
+
+    total_target = 12  # or derive from config
+    return {
+        "interview_id": interview_id,
+        "user_id": interview.user_id,
+        "progress": f"{answered_count}/{total_target}",
+        "percentage": round(answered_count / total_target * 100, 1),
+        "status": "complete" if answered_count >= total_target else "active",
+    }

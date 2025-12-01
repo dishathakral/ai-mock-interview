@@ -3,6 +3,9 @@ from sqlalchemy import Column, Integer, String, DateTime, Float, ForeignKey, Tex
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 from datetime import datetime
+from sqlalchemy.orm import relationship
+from sqlalchemy import UniqueConstraint
+
 
 Base = declarative_base()
 
@@ -15,7 +18,7 @@ class User(Base):
     email = Column(String(255), unique=True, nullable=False, index=True)
     name = Column(String(255), nullable=False)
     industry = Column(String(100), index=True)
-    industry_insight = Column(Text)
+    job_role = Column(Text)
     bio = Column(Text)
     experience = Column(String(50))# e.g., "0-2 years", "3-5 years"
     experience_details = Column(Text, nullable=True)  # Detailed summary of experience
@@ -39,6 +42,11 @@ class Interview(Base):
     job_role = Column(String(100), index=True)
     total_questions = Column(Integer, default=0)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+    interview_questions = relationship(
+        "InterviewQuestion",
+        back_populates="interview",
+        cascade="all, delete-orphan"
+    )
 
 
 class GlobalQuestion(Base):
@@ -63,18 +71,49 @@ class GlobalQuestion(Base):
         server_default=None  # NULL means optional
     )
 
+
+
 class InterviewQuestion(Base):
-    """Questions asked in specific interview sessions"""
     __tablename__ = "interview_questions"
 
-    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     interview_id = Column(Integer, ForeignKey("interviews.interview_id"), nullable=False, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
-    question_id = Column(Integer, ForeignKey("global_questions.question_id"), nullable=True)
-    question_text = Column(Text, nullable=False)  # Denormalized for easy retrieval
-    question_type = Column(String(50), nullable=False)
-    asked_at = Column(DateTime(timezone=True), server_default=func.now())
-    order_number = Column(Integer, nullable=False)  # Sequence in interview
+    question_id = Column(Integer, ForeignKey("global_questions.question_id"), nullable=False, index=True)
+
+    order_index = Column(Integer, nullable=False)  # 0,1,2,... sequence within this interview
+    question_type = Column(String(50), nullable=False)      # hr / technical / behavioral / experience
+    subcategory = Column(String(100), nullable=True)        # introductory, closing, etc.
+
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    interview = relationship("Interview", back_populates="interview_questions")
+    question = relationship("GlobalQuestion")
+
+# class InterviewQuestion(Base):
+#     __tablename__ = "interview_questions"
+#     __table_args__ = (
+#         UniqueConstraint("interview_id", "order_index", name="uq_interview_order"),
+#         UniqueConstraint("interview_id", "question_id", name="uq_interview_question"),
+#     )
+#
+#     id = Column(Integer, primary_key=True, autoincrement=True)
+#     interview_id = Column(
+#         Integer, ForeignKey("interviews.interview_id"),
+#         nullable=False, index=True
+#     )
+#     question_id = Column(
+#         Integer, ForeignKey("global_questions.question_id"),
+#         nullable=False, index=True
+#     )
+#
+#     order_index = Column(Integer, nullable=False)  # 0,1,2,...
+#     question_type = Column(String(50), nullable=False)
+#     subcategory = Column(String(100), nullable=True)
+#
+#     created_at = Column(DateTime(timezone=True), server_default=func.now())
+#
+#     interview = relationship("Interview", back_populates="interview_questions")
+#     question = relationship("GlobalQuestion")
 
 
 class UserAnswer(Base):

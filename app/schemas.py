@@ -45,7 +45,7 @@ class UserCreate(BaseModel):
     email: EmailStr
     name: str = Field(..., min_length=1, max_length=255)
     industry: str
-    industry_insight: Optional[str] = None
+    job_role: str
     bio: Optional[str] = None
     experience: Optional[str] = None
     skills: Optional[List[str]] = None
@@ -57,7 +57,7 @@ class UserUpdate(BaseModel):
     """Update user"""
     name: Optional[str] = None
     industry: Optional[str] = None
-    industry_insight: Optional[str] = None
+    job_role: Optional[str] = None
     bio: Optional[str] = None
     experience: Optional[str] = None
     skills: Optional[List[str]] = None
@@ -69,6 +69,7 @@ class UserResponse(BaseModel):
     email: str
     name: str
     industry: str
+    job_role:str
     bio: Optional[str] = None
     experience: Optional[str] = None
     skills: Optional[List[str]] = None
@@ -285,3 +286,10 @@ class ErrorResponse(BaseModel):
     """Error response"""
     detail: str
     error_code: Optional[str] = None
+
+# Request models
+class AnswerRequest(BaseModel):
+    answer_text: str
+
+class CreateInterviewRequest(BaseModel):
+    user_id: int
